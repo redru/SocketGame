@@ -1,0 +1,17 @@
+{
+  "name": "socket-game",
+  "version": "0.0.1",
+  "description": "v0.0.1",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luca Zenobi",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "socket.io": "^1.4.8"
+  }
+}
