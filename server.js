@@ -20,7 +20,7 @@ app.get('/register/:username', function(req, res) {
     const user = UCC.register(req.params.username);
 
     return user ? ResponseHandler.sendJson(res, 200, 'User correctly registered.', user) :
-        ResponseHandler.sendError(res, 500, 1, 'User already registered. Pick another username.');
+        ResponseHandler.sendError(res, 400, 1, 'User already registered. Pick another username.');
 });
 
 app.get('/unregister/:hash', function(req, res) {
@@ -28,7 +28,7 @@ app.get('/unregister/:hash', function(req, res) {
     const user = UCC.unregister(req.params.hash);
 
     return user ? ResponseHandler.sendJson(res, 200, 'User correctly unregistered.', user.username) :
-        ResponseHandler.sendError(res, 500, 1, 'User was not registered.');
+        ResponseHandler.sendError(res, 400, 1, 'User was not registered.');
 });
 
 http.createServer(app).listen(80, 'localhost', function() {

@@ -12,12 +12,16 @@
     });
 
     function onClickRegister() {
-        var user = sessionStorage.getItem('user');
+        var user = Storager.sessionGetJson('user');
 
         if (user) {
             unregister(user.hash)
-                .then(sessionStorage.clear())
-                .then(register(registerInput.val()))
+                .then(function() {
+                    Storager.clearAll()
+                })
+                .then(function() {
+                    register(registerInput.val())
+                })
                 .then(function() {
                     registerView.fadeOut();
                     hallView.fadeIn();
@@ -39,7 +43,7 @@
                 console.log(response);
 
                 if (response.body) {
-                    sessionStorage.setItem('user', response.body);
+                    Storager.sessionSaveJson('user', response.body);
                     return resolve(response);
                 } else {
                     return reject(response.error);
@@ -59,7 +63,8 @@
                     return resolve(response);
                 }
             }).fail(function(response) {
-                return reject(response);
+                if (response.responseJSON && response.responseJSON.error)
+                    return resolve(null);
             });
         });
     }
