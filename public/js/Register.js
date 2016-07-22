@@ -63,8 +63,11 @@
                     return resolve(response);
                 }
             }).fail(function(response) {
-                if (response.responseJSON && response.responseJSON.error)
+                if (response.responseJSON && response.responseJSON.error) {
                     return resolve(null);
+                } else {
+                    return reject(response);
+                }
             });
         });
     }
