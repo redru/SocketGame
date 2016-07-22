@@ -19,7 +19,7 @@ app.get('/register/:username', function(req, res) {
     console.log('Requested register for: ' + req.params.username);
     const user = UCC.register(req.params.username);
 
-    return user ? ResponseHandler.sendJson(res, 200, 'User correctly registered.', user.hash) :
+    return user ? ResponseHandler.sendJson(res, 200, 'User correctly registered.', user) :
         ResponseHandler.sendError(res, 500, 1, 'User already registered. Pick another username.');
 });
 

@@ -12,15 +12,24 @@
     });
 
     function onClickRegister() {
-        var key = sessionStorage.getItem('key');
+        var user = sessionStorage.getItem('user');
 
-        if (key) {
-            unregister(key)
+        if (user) {
+            unregister(user.hash)
                 .then(sessionStorage.clear())
                 .then(register(registerInput.val()))
+                .then(function() {
+                    registerView.fadeOut();
+                    hallView.fadeIn();
+                })
                 .catch(console.log);
         } else {
-            register(registerInput.val()).catch(console.log);
+            register(registerInput.val())
+                .then(function() {
+                    registerView.fadeOut();
+                    hallView.fadeIn();
+                })
+                .catch(console.log);
         }
     }
 
@@ -30,10 +39,10 @@
                 console.log(response);
 
                 if (response.body) {
-                    sessionStorage.setItem('key', response.body);
-                    registerView.fadeOut();
-                    hallView.fadeIn();
+                    sessionStorage.setItem('user', response.body);
                     return resolve(response);
+                } else {
+                    return reject(response.error);
                 }
             }).fail(function(response) {
                 return reject(response);
@@ -47,15 +56,17 @@
                 console.log(response);
 
                 if (response.body) {
-                    sessionStorage.setItem('key', response.body);
-                    registerView.fadeOut();
-                    hallView.fadeIn();
                     return resolve(response);
                 }
             }).fail(function(response) {
                 return reject(response);
             });
         });
+    }
+
+    function User(username, hash) {
+        this.username = username ? username : '';
+        this.hash = hash ? hash : '';
     }
 
 })();
