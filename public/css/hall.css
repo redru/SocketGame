@@ -1,3 +1,5 @@
-.hallView {
+.hall-container {
     display: none;
+    position: absolute;
+    z-index: 0;
 }

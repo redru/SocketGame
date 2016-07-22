@@ -1,0 +1,4 @@
+.register-container {
+    position: absolute;
+    z-index: 10;
+}

@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <title>SocketGame</title>
 
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
     <link rel="stylesheet" type="text/css" href="/css/register.css">
     <link rel="stylesheet" type="text/css" href="/css/hall.css">
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.2.2/es6-promise.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 </head>
 <body>
-    <div id="registerView" class="registerView">
+<div class="view-container">
+    <div id="registerView" class="register-container">
         <h3>Register in the game:</h3>
         <input id="registerInput" type="text" title="username" />
         <button id="registerButton" type="button">Enter</button>
     </div>
 
-    <div id="hallView" class="hallView">
+    <div id="hallView" class="hall-container">
         <h3>Welcome Hall view!</h3>
     </div>
+</div>
 
-    <script src="/js/Register.js"></script>
+<script src="/js/Register.js"></script>
 </body>
 </html>

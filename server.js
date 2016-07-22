@@ -16,10 +16,19 @@ app.use(bodyParser.json());
 app.use('/', express.static('./public'));
 
 app.get('/register/:username', function(req, res) {
+    console.log('Requested register for: ' + req.params.username);
     const user = UCC.register(req.params.username);
 
     return user ? ResponseHandler.sendJson(res, 200, 'User correctly registered.', user.hash) :
         ResponseHandler.sendError(res, 500, 1, 'User already registered. Pick another username.');
+});
+
+app.get('/unregister/:hash', function(req, res) {
+    console.log('Requested unregister for: ' + req.params.hash);
+    const user = UCC.unregister(req.params.hash);
+
+    return user ? ResponseHandler.sendJson(res, 200, 'User correctly unregistered.', user.username) :
+        ResponseHandler.sendError(res, 500, 1, 'User was not registered.');
 });
 
 http.createServer(app).listen(80, 'localhost', function() {

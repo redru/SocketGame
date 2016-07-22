@@ -20,7 +20,13 @@ const UCC = function() {
     }
 
     function unregister(hash) {
-        delete users[hash];
+        if (users[hash]) {
+            const copy = users[hash].copy();
+            delete users[hash];
+            return copy;
+        } else {
+            return null;
+        }
     }
 
     function userExists(username) {
@@ -45,11 +51,15 @@ const UCC = function() {
 
 module.exports = new UCC();
 
-function User(username) {
+function User(username, hash) {
     this.username = username;
-    this.hash = crypto.createHmac('sha256', secret)
+    this.hash = hash ? hash : crypto.createHmac('sha256', secret)
         .update(username + Date.now())
         .digest('hex');
 
     this.socket = null;
+
+    this.copy = function() {
+        return new User(this.username, this.hash);
+    }
 }
