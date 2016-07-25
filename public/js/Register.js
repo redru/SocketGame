@@ -22,12 +22,7 @@
                 })
                 .then(GameServer.getUsersList)
                 .then(function(data) {
-                    var html = '';
-                    data.body.forEach(function(obj) {
-                        html = html + '<li>' + obj.username + '</li>';
-                    });
-
-                    $('#usersList').html(html);
+                    $('#usersList').arrayToList(data.body, 'username');
                 })
                 .then(switchView)
                 .catch(console.log);
@@ -35,12 +30,7 @@
             GameServer.register(registerInput.val())
                 .then(GameServer.getUsersList)
                 .then(function(data) {
-                    var html = '';
-                    data.body.forEach(function(obj) {
-                        html = html + '<li>' + obj.username + '</li>';
-                    });
-
-                    $('#usersList').html(html);
+                    $('#usersList').arrayToList(data.body, 'username');
                 })
                 .then(switchView)
                 .catch(console.log);
