@@ -15,66 +15,46 @@
         var user = Storager.sessionGetJson('user');
 
         if (user) {
-            unregister(user.hash)
+            GameServer.unregister(user.hash)
+                .then(Storager.clearAll)
                 .then(function() {
-                    Storager.clearAll()
+                    return GameServer.register(registerInput.val());
                 })
-                .then(function() {
-                    register(registerInput.val())
+                .then(GameServer.getUsersList)
+                .then(function(data) {
+                    var html = '';
+                    data.body.forEach(function(obj) {
+                        html = html + '<li>' + obj.username + '</li>';
+                    });
+
+                    $('#usersList').html(html);
                 })
-                .then(function() {
-                    registerView.fadeOut();
-                    hallView.fadeIn();
-                })
+                .then(switchView)
                 .catch(console.log);
         } else {
-            register(registerInput.val())
-                .then(function() {
-                    registerView.fadeOut();
-                    hallView.fadeIn();
+            GameServer.register(registerInput.val())
+                .then(GameServer.getUsersList)
+                .then(function(data) {
+                    var html = '';
+                    data.body.forEach(function(obj) {
+                        html = html + '<li>' + obj.username + '</li>';
+                    });
+
+                    $('#usersList').html(html);
                 })
+                .then(switchView)
                 .catch(console.log);
         }
     }
 
-    function register(username) {
-        return new Promise(function(resolve, reject) {
-            $.get('/register/' + username).done(function(response) {
-                console.log(response);
-
-                if (response.body) {
-                    Storager.sessionSaveJson('user', response.body);
-                    return resolve(response);
-                } else {
-                    return reject(response.error);
-                }
-            }).fail(function(response) {
-                return reject(response);
-            });
-        });
+    function resetView() {
+        registerInput.val('');
     }
 
-    function unregister(key) {
-        return new Promise(function(resolve, reject) {
-            $.get('/unregister/' + key).done(function(response) {
-                console.log(response);
-
-                if (response.body) {
-                    return resolve(response);
-                }
-            }).fail(function(response) {
-                if (response.responseJSON && response.responseJSON.error) {
-                    return resolve(null);
-                } else {
-                    return reject(response);
-                }
-            });
-        });
-    }
-
-    function User(username, hash) {
-        this.username = username ? username : '';
-        this.hash = hash ? hash : '';
+    function switchView() {
+        registerView.fadeOut();
+        hallView.fadeIn();
+        resetView();
     }
 
 })();

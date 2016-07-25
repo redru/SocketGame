@@ -42,10 +42,32 @@ const UCC = function() {
         return users[hash];
     }
 
+    function getUsersList() {
+        var retUsers = [];
+
+        for (var hash in users) {
+            retUsers.push({ username: users[hash].username });
+        }
+
+        return retUsers;
+    }
+
+    function getUsersListFull() {
+        var retUsers = [];
+
+        for (var hash in users) {
+            retUsers.push({ username: users[hash].username, hash: hash });
+        }
+
+        return retUsers;
+    }
+
     return {
         register: register,
         unregister: unregister,
-        getUser: getUser
+        getUser: getUser,
+        getUsersList: getUsersList,
+        getUsersListFull: getUsersListFull
     }
 };
 
