@@ -25,6 +25,7 @@
                     $('#usersList').arrayToList(data.body, 'username');
                 })
                 .then(switchView)
+                .then(resetView)
                 .catch(console.log);
         } else {
             GameServer.register(registerInput.val())
@@ -33,6 +34,7 @@
                     $('#usersList').arrayToList(data.body, 'username');
                 })
                 .then(switchView)
+                .then(resetView)
                 .catch(console.log);
         }
     }
@@ -44,7 +46,6 @@
     function switchView() {
         registerView.fadeOut();
         hallView.fadeIn();
-        resetView();
     }
 
 })();
