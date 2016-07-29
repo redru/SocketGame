@@ -5,9 +5,11 @@
 const http              = require('http');
 const express           = require('express');
 const bodyParser        = require('body-parser');
+const cors              = require('cors');
 
 const UCC               = require('./libs/UsersCentralController');
 const ResponseHandler   = require('./libs/ResponseHandler');
+const Messaging         = require('./libs/Messaging');
 
 const app = express();
 app.disable('x-powered-by');
@@ -35,6 +37,8 @@ app.get('/users/active', function(req, res) {
     return ResponseHandler.sendJson(res, 200, '', UCC.getUsersList());
 });
 
-http.createServer(app).listen(80, 'localhost', function() {
+const server = http.createServer(app).listen(80, 'localhost', function() {
     console.log('Server is up...');
 });
+
+Messaging.attach(server);

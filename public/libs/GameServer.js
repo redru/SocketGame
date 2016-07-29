@@ -27,7 +27,7 @@ var GameServer = {
                 console.log(response);
 
                 if (response.body) {
-                    return resolve(response);
+                    return resolve(response.body);
                 } else {
                     return reject(response.error);
                 }
