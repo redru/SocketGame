@@ -27,12 +27,20 @@
     </div>
 
     <div id="hallView" class="hall-container">
-        <h3>Connected users:</h3>
-        <div>< --------------------- ></div>
-        <ul id="usersList"></ul>
-        <div>< --------------------- ></div>
-        <div>
-            <button id="logoutButton" type="button">Logout</button>
+        <div class="float-left padding-m">
+            <h3>Connected users:</h3>
+            <div>< --------------------- ></div>
+            <ul id="usersList"></ul>
+            <div>< --------------------- ></div>
+            <div>
+                <button id="logoutButton" type="button">Logout</button>
+            </div>
+        </div>
+        <div class="float-left padding-m" style="overflow-y: auto; width: 100%; max-height: 10%; border: 1px solid black;">
+            <input id="chatInput" type="text" title="Write message">
+            <div id="chatArea">
+                <p style="color: #ff0000;">Welcome to the public chat.</p>
+            </div>
         </div>
     </div>
 </div>

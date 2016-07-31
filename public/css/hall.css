@@ -3,3 +3,19 @@
     position: absolute;
     z-index: 0;
 }
+
+.chat-message {
+    word-wrap: break-word;
+}
+
+.chat-message .author.public {
+
+}
+
+.chat-message .author.mine {
+    color: blue;
+}
+
+.chat-message .author.system {
+    color: red;
+}

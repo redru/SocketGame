@@ -21,6 +21,8 @@ app.post('/register/:username', function(req, res) {
     console.log('Requested register for: ' + req.params.username);
     const user = UCC.register(req.params.username);
 
+    Messaging.sendMessageAll('User ' + user.username + ' connected.', 'SYSTEM');
+
     return user ? ResponseHandler.sendJson(res, 200, 'User correctly registered.', user) :
         ResponseHandler.sendError(res, 400, 1, 'User already registered. Pick another username.');
 });
@@ -37,8 +39,8 @@ app.get('/users/active', function(req, res) {
     return ResponseHandler.sendJson(res, 200, '', UCC.getUsersList());
 });
 
-const server = http.createServer(app).listen(80, 'localhost', function() {
+const server = http.createServer(app).listen(80, '192.168.1.112', function() {
     console.log('Server is up...');
 });
 
-Messaging.attach(server);
+Messaging.attachTo(server);

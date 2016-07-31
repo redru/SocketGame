@@ -56,7 +56,8 @@ const UCC = function() {
         var retUsers = [];
 
         for (var hash in users) {
-            retUsers.push({ username: users[hash].username, hash: hash });
+            const user  = users[hash];
+            retUsers.push({ username: user.username, hash: user.hash, socket: user.socket });
         }
 
         return retUsers;

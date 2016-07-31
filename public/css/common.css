@@ -9,3 +9,7 @@
 .view-container {
     position: relative;
 }
+
+.padding-m {
+    padding: 5%;
+}
