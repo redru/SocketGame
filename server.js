@@ -20,8 +20,7 @@ app.use('/', express.static('./public'));
 app.post('/register/:username', function(req, res) {
     console.log('Requested register for: ' + req.params.username);
     const user = UCC.register(req.params.username);
-
-    Messaging.sendMessageAll('User ' + user.username + ' connected.', 'SYSTEM');
+    Messaging.sendUserConnected(user.username);
 
     return user ? ResponseHandler.sendJson(res, 200, 'User correctly registered.', user) :
         ResponseHandler.sendError(res, 400, 1, 'User already registered. Pick another username.');
@@ -30,6 +29,8 @@ app.post('/register/:username', function(req, res) {
 app.post('/unregister/:hash', function(req, res) {
     console.log('Requested unregister for: ' + req.params.hash);
     const user = UCC.unregister(req.params.hash);
+
+    Messaging.sendUserDisconnected();
 
     return user ? ResponseHandler.sendJson(res, 200, 'User correctly unregistered.', user.username) :
         ResponseHandler.sendError(res, 400, 1, 'User was not registered.');

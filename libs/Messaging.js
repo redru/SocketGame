@@ -19,7 +19,22 @@ Messaging.prototype.sendMessageAll = function(message, author) {
     const users = UCC.getUsersListFull();
     users.forEach(function(user) {
         if (user.socket && user.username != author)
-            user.socket.emit('message', { message: message, author: author});
+            user.socket.emit('message', { message: message, author: author });
+    });
+};
+
+Messaging.prototype.sendUserConnected = function(author) {
+    const users = UCC.getUsersListFull();
+    users.forEach(function(user) {
+        if (user.socket && user.username != author)
+            user.socket.emit('user-connected', { message: 'User ' + user.username + ' connected.', author: 'SYSTEM' });
+    });
+};
+
+Messaging.prototype.sendUserDisconnected = function() {
+    const users = UCC.getUsersListFull();
+    users.forEach(function(user) {
+        user.socket.emit('user-disconnected', { message: '', author: 'SYSTEM' });
     });
 };
 
